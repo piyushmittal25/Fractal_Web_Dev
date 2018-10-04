@@ -32,6 +32,7 @@ def announcements(request):
 def about(request):
     return render(request,'fractalweb/about.html',{})    
 
+
 def register(request):
     message=""
     if request.method == 'POST':
@@ -102,41 +103,44 @@ def LogInView(request):
 
 
 
+@login_required
 def update_excel(request):
-    message=''
-    if request.method == 'POST':
-        form = UpdateExcelForm(request.POST, request.FILES)
-        if form.is_valid():
-            from fractalweb.models import ExtendedUser
-            excel_file = request.FILES['excel_file']
-        import os
-        import tempfile
-        import xlrd
-        fd, path = tempfile.mkstemp() #  mkstemp returns a tuple: an integer (index) called file descriptor used by OS to refer to a file and its path
-        try:
-            with os.fdopen(fd, 'wb') as tmp:
-                tmp.write(excel_file.read())
-            book = xlrd.open_workbook(path)
-            sheet = book.sheet_by_index(0)
-            for i in range(1,sheet.nrows-1):
-                rollno = sheet.cell(rowx=i, colx=0).value
-                fname = sheet.cell(rowx=i, colx=1).value
-                lname = sheet.cell(rowx=i, colx=2).value
-                branch = sheet.cell(rowx=i, colx=3).value
-                email = sheet.cell(rowx=i, colx=4).value
-                phone = sheet.cell(rowx=i, colx=5).value
-                sessions=sheet.cell(rowx=i, colx=6).value
-                token = sheet.cell(rowx=i, colx=7).value
-                print(rollno,fname,lname,branch,email,phone,sessions,token)
-                rollno,fname,lname,branch,email,phone,sessions,token=str(int(rollno)),fname.strip(),lname.strip(),branch.strip(),email.strip(),int(phone),sessions.strip(),str(token).strip()
-                print(rollno,fname,lname,branch,email,phone,sessions,token,"\n\n\n\n\n\n")
-                obj=User(username=rollno,first_name=fname,last_name=lname,email=email,is_staff=False,is_active=False,is_superuser=False)
-                obj.save()
-                Exobj=ExtendedUser(user=obj,rollno=rollno,branch=branch,phone=phone//100,token=str(token),sessions=sessions)
-                Exobj.save()
-        finally:
-            os.remove(path)
-    else:
-        form = UpdateExcelForm()
-    return render(request,'upload.html', {'form':form,'message':message})
-
+    if request.user.is_superuser:
+        message=''
+        if request.method == 'POST':
+            form = UpdateExcelForm(request.POST, request.FILES)
+            if form.is_valid():
+                from fractalweb.models import ExtendedUser
+                excel_file = request.FILES['excel_file']
+            import os
+            import tempfile
+            import xlrd
+            fd, path = tempfile.mkstemp() #  mkstemp returns a tuple: an integer (index) called file descriptor used by OS to refer to a file and its path
+            try:
+                with os.fdopen(fd, 'wb') as tmp:
+                    tmp.write(excel_file.read())
+                book = xlrd.open_workbook(path)
+                sheet = book.sheet_by_index(0)
+                for i in range(1,sheet.nrows-1):
+                    rollno = sheet.cell(rowx=i, colx=0).value
+                    fname = sheet.cell(rowx=i, colx=1).value
+                    lname = sheet.cell(rowx=i, colx=2).value
+                    branch = sheet.cell(rowx=i, colx=3).value
+                    email = sheet.cell(rowx=i, colx=4).value
+                    phone = sheet.cell(rowx=i, colx=5).value
+                    sessions=sheet.cell(rowx=i, colx=6).value
+                    token = sheet.cell(rowx=i, colx=7).value
+                    print(rollno,fname,lname,branch,email,phone,sessions,token)
+                    rollno,fname,lname,branch,email,phone,sessions,token=str(int(rollno)),fname.strip(),lname.strip(),branch.strip(),email.strip(),int(phone),sessions.strip(),str(token).strip()
+                    print(rollno,fname,lname,branch,email,phone,sessions,token,"\n\n\n\n\n\n")
+                    obj=User(username=rollno,first_name=fname,last_name=lname,email=email,is_staff=False,is_active=False,is_superuser=False)
+                    obj.save()
+                    Exobj=ExtendedUser(user=obj,rollno=rollno,branch=branch,phone=phone//100,token=str(token),sessions=sessions)
+                    Exobj.save()
+            finally:
+                os.remove(path)
+        else:
+            form = UpdateExcelForm()
+        return render(request,'upload.html', {'form':form,'message':message})
+    # else:
+    #     return error_404_view(request, exception);
