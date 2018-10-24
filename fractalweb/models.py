@@ -7,7 +7,7 @@ class ExtendedUser(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     branch=models.CharField(max_length=200, blank=True,null=True)
     rollno=models.CharField(max_length=200, blank=True,null=True)
-    phone=models.IntegerField(default=200, blank=True,null=True)
+    phone=models.CharField(max_length=13, blank=True,null=True)
     token=models.CharField(max_length=200,blank=True,null=True)
     sessions=models.CharField(max_length=200,blank=True,null=True,default='2018-2019')
     #username=re.sub(name)+'_'+str(rollno[:2])+str(rollno[6:])

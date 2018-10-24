@@ -130,12 +130,12 @@ def update_excel(request):
                     phone = sheet.cell(rowx=i, colx=5).value
                     sessions=sheet.cell(rowx=i, colx=6).value
                     token = sheet.cell(rowx=i, colx=7).value
-                    print(rollno,fname,lname,branch,email,phone,sessions,token)
-                    rollno,fname,lname,branch,email,phone,sessions,token=str(int(rollno)),fname.strip(),lname.strip(),branch.strip(),email.strip(),int(phone),sessions.strip(),str(token).strip()
-                    print(rollno,fname,lname,branch,email,phone,sessions,token,"\n\n\n\n\n\n")
+                    # print(rollno,fname,lname,branch,email,phone,sessions,token)
+                    rollno,fname,lname,branch,email,phone,sessions,token=str(int(rollno)),fname.strip(),lname.strip(),branch.strip(),email.strip(),phone.strip(),sessions.strip(),str(token).strip()
+                    # print(rollno,fname,lname,branch,email,phone,sessions,token,"\n\n\n\n\n\n")
                     obj=User(username=rollno,first_name=fname,last_name=lname,email=email,is_staff=False,is_active=False,is_superuser=False)
                     obj.save()
-                    Exobj=ExtendedUser(user=obj,rollno=rollno,branch=branch,phone=phone//100,token=str(token),sessions=sessions)
+                    Exobj=ExtendedUser(user=obj,rollno=rollno,branch=branch,phone=phone,token=str(token),sessions=sessions)
                     Exobj.save()
             finally:
                 os.remove(path)
