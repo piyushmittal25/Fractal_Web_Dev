@@ -27,6 +27,13 @@
     outline: 0;
     outline: none;
     }
+    .card-deck{
+      width: 90%;
+      margin-left:5%;
+    }
+    .card{
+      height: 318px;
+    }
   </style>
 </head>
 
@@ -75,18 +82,18 @@
 </nav>
 
 <div class="container" id="deckContainer">
-<div class="card-deck" style="margin-bottom: 10px">
+<div class="card-deck" style="margin-bottom: 20px">
   <div class="card" id="card">
     <img class="card-img-top" src=" {% static 'images/coding.svg' %}"  alt="Card image cap" style="height: 56%;">
     <div class="card-body">
     	<a href="{% url  'classroom:question' %}">
       <h2 class="card-title">Classroom</h2>
-      <p class="card-text">Can only be accessed after login.<br/> You will find all the material referred in the class, including puzzles and exercises.</p>
+      <!-- <p class="card-text">Can only be accessed after login.<br/> You will find all the material referred in the class, including puzzles and exercises.</p> -->
 	    </a>
 		</div>
  
     <div class="card-footer">
-      <small class="text-muted">"Members are supposed to lead one day"</small>
+      <small class="text-muted">"Learners today leaders tomorow."</small>
     </div>
   </div>
 
@@ -95,7 +102,7 @@
     <div class="card-body">
     	<a href="{% url  'explore' %}">
       <h2 class="card-title">Explore</h2>
-      <p class="card-text">An index of all the good resources for various fields. From machine learning to app development everything is covered here.</p>
+      <!-- <p class="card-text">An index of all the good resources for various fields. From machine learning to app development everything is covered here.</p> -->
 	    </a>
 		</div>
     <div class="card-footer">
@@ -105,17 +112,17 @@
 </div>
 
 
-<div class="card-deck" style="margin-bottom: 10px">
+<div class="card-deck" style="margin-bottom: 20px;">
   <div class="card" id="card">
     <img class="card-img-top" src="{% static 'images/newsletter.svg' %}" alt="Card image cap" style="height: 56%;">
     <div class="card-body">
     	<a href="{% url  'announcements' %}">
       <h2 class="card-title">Announcements</h2>
-      <p class="card-text">All the special events (hackathons, codathons,etc), party and fun events will be listed here. <br/>Don't be late.</p>
+     <!--  <p class="card-text">All the special events (hackathons, codathons,etc), party and fun events will be listed here. <br/>Don't be late.</p> -->
 	    </a>
 		</div>
     <div class="card-footer">
-      <small class="text-muted">"For the night is dark and full of terror, so you must remain vigilant at all times."</small>
+      <small class="text-muted">"Stay vigilant stay updated."</small>
     </div>
   </div>
 
@@ -124,11 +131,11 @@
     <div class="card-body">
     	<a href="{% url  'about' %}">
       <h2 class="card-title">About Us</h2>
-      <p class="card-text">A club is no good without the people running it with their heart and soul. Get to know them better.</p>
+      <!-- <p class="card-text">A club is no good without the people running it with their heart and soul. Get to know them better.</p> -->
 	    </a>
 		</div>
     <div class="card-footer">
-      <small class="text-muted">"We all serve for a better cause." </small>
+      <small class="text-muted">"Get to know us better." </small>
     </div>
   </div>
 </div>
