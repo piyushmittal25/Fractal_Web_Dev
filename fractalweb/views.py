@@ -95,7 +95,7 @@ def LogInView(request):
                 content_dic={'error':'You are a Inactive User Contact Admin'}
                 return render(request,'registration/login.html',context=content_dic)
         else:
-            content_dic={'error':'Invalid EmailField or Password'}
+            content_dic={'error':'Invalid Roll Number or Password'}
             return render(request,'registration/login.html',context=content_dic)
     else:
         return render(request,'registration/login.html')
