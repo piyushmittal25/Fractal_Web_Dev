@@ -55,7 +55,7 @@
 
   <ul class="navbar-nav ml-auto">
     {% if user.is_authenticated %}
-         <li><p class="top-menu">Hello {{ user.username }} <small>(<a href="{% url 'logout' %}">Log out</a>)</small></p>
+         <li><p class="top-menu" style="color:white">Hello {{ user.username }} <small>(<a href="{% url 'logout' %}">Log out</a>)</small></p>
     {% else %}
     <li class="nav-item">
       <a class="nav-link" href="{% url 'login' %}">Login<i class="fa fa-user"></i></a>
